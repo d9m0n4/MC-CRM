@@ -1,25 +1,56 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import Login from '../views/Login.vue';
+import Home from '../views/Home.vue';
+import Objects from '../views/Objects.vue';
+import PersAccs from '../views/PersAccs.vue';
+import Documents from '../views/Documents.vue';
+import Requests from '../views/Requests.vue';
+import Votes from '../views/Votes.vue';
+import Appeal from '../views/Appeal.vue';
+import Service from '../views/Service.vue';
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: '/login',
+    component: Login,
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
-]
+    path: '/',
+    component: Home,
+  },
+  {
+    path: '/objects',
+    component: Objects,
+  },
+  {
+    path: '/accaunt/list',
+    component: PersAccs,
+  },
+  {
+    path: '/documents',
+    component: Documents,
+  },
+  {
+    path: '/requests',
+    component: Requests,
+  },
+  {
+    path: '/votes',
+    component: Votes,
+  },
+  {
+    path: '/appeal',
+    component: Appeal,
+  },
+  {
+    path: '/service',
+    component: Service,
+  },
+];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;

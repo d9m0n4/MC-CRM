@@ -1,0 +1,132 @@
+@media (max-width: 1919px) {
+  .app-content-body {
+    .dashboard-widgets {
+      .news-panel {
+        padding: 8px 16px;
+        .widget-card {
+          text-align: center;
+          &-footer {
+            flex-direction: column;
+            align-items: start;
+          }
+        }
+        .push-widget-title {
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1700px) {
+  .app-content-body {
+    .dashboard-widgets {
+      .news-panel {
+        padding: 16px 32px;
+        .widget-card {
+          text-align: left;
+          &-footer {
+            flex-direction: row;
+            align-items: center;
+          }
+        }
+        .push-widget-title {
+          text-align: left;
+        }
+      }
+    }
+  }
+  .app-content-body {
+    .news {
+      display: none;
+    }
+    .dashboard {
+      .show-btn {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        top: 8px;
+        right: 8px;
+        border-radius: 50%;
+        border: 1px solid $accent;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: translateX(0px);
+        transition: 0.5s all ease-in-out;
+      }
+      &-widgets {
+        .news-panel {
+          position: absolute;
+          right: 0;
+          top: 0;
+          transform: translateX(500px);
+          transition: 0.5s all ease-in-out;
+          margin: 0;
+          max-width: 430px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1440px) {
+  .app-content-body {
+    .dashboard {
+      padding: 32px;
+    }
+    .dashboard-widgets {
+      .widget-panel-card:nth-child(2) {
+        margin: 0 32px;
+      }
+      .widget-panel-card {
+        &-title {
+          font-size: 24px;
+        }
+        &-body {
+          font-size: 48px;
+        }
+      }
+      .widget-panel {
+        justify-content: space-between;
+        &-circlechart {
+          &:nth-child(1) {
+            margin-right: 32px;
+          }
+          &-header {
+            .circlechart-title {
+              font-size: 24px;
+            }
+            .circlechart-filter {
+              font-size: 12px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1439px) {
+  .app-content-header-title .menu-icon {
+    display: flex;
+  }
+  .sidebar {
+    left: -260px;
+    transition: 1s all ease-in-out;
+    &.opened {
+      left: 0;
+      transition: 1s all ease-in-out;
+    }
+  }
+  .app-content {
+    margin-left: 0;
+    &-body .dashboard-widgets .widget-panel-circlechart {
+      width: 100%;
+      &:nth-child(1) {
+        margin-right: 32px;
+      }
+    }
+  }
+}
