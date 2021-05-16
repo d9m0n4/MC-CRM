@@ -775,6 +775,122 @@ ul {
   }
 }
 
+.document-list {
+  .dashboard {
+    padding: 32px;
+  }
+}
+
+.documents-tabs {
+  width: 100%;
+  .tabs {
+    display: flex;
+    margin-bottom: 16px;
+    a {
+      cursor: pointer;
+      color: rgba($color: $accent-dark, $alpha: 0.7);
+      margin-right: 64px;
+      &.active {
+        border-bottom: 1px solid rgba(134, 19, 205, 0.3);
+        color: #000000;
+      }
+    }
+  }
+  .tab-content-item {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    .contracts-cards {
+      display: flex;
+      flex-wrap: wrap;
+      .contract-card {
+        margin: 16px;
+        border: 1px solid transparent;
+        background-color: #fff;
+        box-shadow: 2px 2px 8px 2px rgba(0, 0, 0, 0.25);
+        border-radius: 4px;
+        padding: 8px 16px;
+        font-size: 10px;
+        max-width: 377px;
+        &-header {
+          display: flex;
+          justify-content: space-between;
+          padding-bottom: 8px;
+          border-bottom: 1px solid $gray;
+          .contract-title {
+            font-size: 12px;
+          }
+          .contract-status {
+            font-size: 10px;
+            color: $success;
+          }
+        }
+        &-body {
+          margin: 8px 0;
+          display: flex;
+          flex-direction: column;
+          &-row {
+            display: flex;
+            .row-cell {
+              width: 30%;
+              color: rgba($accent-dark, 0.7);
+            }
+            .info {
+              width: 70%;
+              margin-left: 32px;
+              color: #000000;
+            }
+          }
+        }
+        &:hover {
+          border: 1px solid rgba(134, 19, 205, 0.4);
+        }
+      }
+    }
+    .contracts-filter {
+      width: 240px;
+      .filter-card {
+        margin-top: 16px;
+        width: inherit;
+        background: #ffffff;
+        box-shadow: 2px 2px 8px 2px rgba(0, 0, 0, 0.25);
+        border-radius: 4px;
+        padding: 16px 24px;
+        &-title {
+          font-size: 18px;
+          text-align: center;
+          color: rgba($accent-dark, 0.7);
+        }
+        &-body {
+          display: flex;
+          flex-direction: column;
+          font-size: 12px;
+          margin: 32px 0 16px 0;
+          &-row {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 16px;
+            .row-title {
+              margin-right: 16px;
+            }
+            .row-field {
+              .filter-input {
+                border-radius: 4px;
+                border: 1px solid rgba($accent-dark, 0.7);
+                font-size: 12px;
+                font-family: 'Lato', sans-serif;
+                padding: 2px;
+                height: 25px;
+                width: 100%;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 @keyframes show {
   0% {
     opacity: 0;

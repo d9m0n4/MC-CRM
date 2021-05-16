@@ -16,6 +16,9 @@
       }
     }
   }
+  .documents-tabs .tab-content-item .contracts-filter {
+    width: 100%;
+  }
 }
 
 @media (max-width: 1700px) {
@@ -105,6 +108,9 @@
         }
       }
     }
+  }
+  .documents-tabs .tab-content-item .contracts-filter {
+    width: 230px;
   }
 }
 
