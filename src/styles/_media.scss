@@ -17,7 +17,7 @@
     }
   }
   .documents-tabs .tab-content-item .contracts-filter {
-    width: 100%;
+    width: 50%;
   }
 }
 
@@ -74,6 +74,12 @@
   }
 }
 
+@media (max-width: 1490px) {
+  .documents-tabs .tab-content-item .contracts-filter {
+    width: 45%;
+  }
+}
+
 @media (max-width: 1440px) {
   .app-content-body {
     .dashboard {
@@ -110,7 +116,7 @@
     }
   }
   .documents-tabs .tab-content-item .contracts-filter {
-    width: 230px;
+    width: 40%;
   }
 }
 
@@ -132,6 +138,31 @@
       width: 100%;
       &:nth-child(1) {
         margin-right: 32px;
+      }
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .app-content-body {
+    .dashboard {
+      padding: 16px;
+    }
+  }
+  .documents-tabs {
+    .tab-content-item {
+      .contracts-cards {
+        .contract-card {
+          margin: 8px;
+          max-width: 360px;
+        }
+      }
+      .contracts-filter {
+        width: 35%;
+        .filter-card {
+          padding: 16px;
+          margin-top: 8px;
+        }
       }
     }
   }

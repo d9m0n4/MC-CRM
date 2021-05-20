@@ -65,13 +65,48 @@ body {
   outline: none;
   transition: background-color 0.1s ease;
   filter: drop-shadow(2px 2px 8px rgba(0, 0, 0, 0.25));
+  background-color: rgba($color: #000, $alpha: 0.5);
   cursor: pointer;
   &.btn-accent {
     background-color: $accent;
   }
+  &.btn-success {
+    background-color: $success;
+    &:hover {
+      background-color: lighten($success, 5%);
+      &::after {
+        opacity: 0.22;
+      }
+    }
+    &:active {
+      background-color: darken($success, 5%);
+      &::after {
+        opacity: 0.32;
+      }
+    }
+  }
+  &.btn-gray {
+    background-color: $halfblack;
+    &:hover {
+      background-color: lighten($halfblack, 5%);
+      &::after {
+        opacity: 0.22;
+      }
+    }
+    &:active {
+      background-color: darken($halfblack, 5%);
+      &::after {
+        opacity: 0.32;
+      }
+    }
+  }
   &.btn-large {
     padding: 9px 23px;
     min-width: 140px;
+  }
+  &.btn-small {
+    padding: 9px 23px;
+    min-width: 120px;
   }
   &.btn-login {
     padding: 14px 40px;
@@ -800,10 +835,10 @@ ul {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    .contracts-cards {
+    .documents-cards {
       display: flex;
       flex-wrap: wrap;
-      .contract-card {
+      .document-card {
         margin: 16px;
         border: 1px solid transparent;
         background-color: #fff;
@@ -811,16 +846,18 @@ ul {
         border-radius: 4px;
         padding: 8px 16px;
         font-size: 10px;
-        max-width: 377px;
+        width: 370px;
+        display: flex;
+        flex-direction: column;
         &-header {
           display: flex;
           justify-content: space-between;
           padding-bottom: 8px;
           border-bottom: 1px solid $gray;
-          .contract-title {
+          .document-title {
             font-size: 12px;
           }
-          .contract-status {
+          .document-status {
             font-size: 10px;
             color: $success;
           }
@@ -831,13 +868,14 @@ ul {
           flex-direction: column;
           &-row {
             display: flex;
+            justify-content: space-between;
             .row-cell {
-              width: 30%;
+              flex: 0 0 40%;
               color: rgba($accent-dark, 0.7);
             }
             .info {
-              width: 70%;
-              margin-left: 32px;
+              flex: 0 0 60%;
+
               color: #000000;
             }
           }
@@ -847,11 +885,13 @@ ul {
         }
       }
     }
-    .contracts-filter {
-      width: 240px;
+    .documents-filter {
+      min-width: 240px;
+      display: flex;
+      justify-content: flex-end;
       .filter-card {
         margin-top: 16px;
-        width: inherit;
+        width: 100%;
         background: #ffffff;
         box-shadow: 2px 2px 8px 2px rgba(0, 0, 0, 0.25);
         border-radius: 4px;
@@ -865,13 +905,13 @@ ul {
           display: flex;
           flex-direction: column;
           font-size: 12px;
-          margin: 32px 0 16px 0;
+          margin: 32px 0 0px 0;
           &-row {
             display: flex;
             flex-direction: column;
             margin-bottom: 16px;
             .row-title {
-              margin-right: 16px;
+              margin-bottom: 4px;
             }
             .row-field {
               .filter-input {
@@ -885,6 +925,68 @@ ul {
               }
             }
           }
+        }
+        &-footer {
+          .filter-document-status {
+            display: flex;
+            justify-content: center;
+            .status {
+              background-color: rgba($color: $accent-dark, $alpha: 0.7);
+              border-radius: 4px;
+              display: flex;
+              justify-content: space-between;
+              flex-wrap: wrap;
+              width: max-content;
+              margin-bottom: 16px;
+              .status-btn {
+                border: none;
+                background-color: transparent;
+                padding: 8px;
+                color: #fff;
+                font-size: 10px;
+                &.active {
+                  background-color: $success;
+                }
+              }
+            }
+          }
+          .filter-buttons {
+            display: flex;
+            justify-content: center;
+            &-group {
+              display: flex;
+              justify-content: space-around;
+              width: 100%;
+              .filter-btn {
+                padding: 8px 21px;
+                font-size: 10px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.service-group {
+  &-item {
+    .uploading-item {
+      background: #ffffff;
+      box-shadow: 2px 2px 8px 2px rgba(0, 0, 0, 0.25);
+      border-radius: 4px;
+      padding: 16px 32px;
+      width: 410px;
+      &-row {
+        margin-bottom: 32px;
+        &-title {
+          color: $accent-dark;
+          margin-bottom: 16px;
+        }
+        &-button {
+          padding: 0 16px;
+          display: flex;
+          justify-content: space-between;
         }
       }
     }
