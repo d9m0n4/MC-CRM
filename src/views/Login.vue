@@ -1,29 +1,35 @@
 <template>
-  <div class="login-form">
+  <form class="login-form" @submit.prevent="onSubmit">
     <div class="login-form-title">Войти в аккаунт</div>
     <div class="input-box">
       <div class="input">
-        <input type="text" name="name" id="name" required />
-        <label for="name">Логин</label>
-        <span class="spin"></span>
+        <input type="email" name="email" id="email" v-model="lValue" @blur="lBlur" />
+        <small>{{ lError }}</small>
+        <label for="email">Логин</label>
+        <span class="spin" :class="{ invalid: lError }"></span>
       </div>
 
       <div class="input">
-        <input type="password" name="pass" id="pass" required />
-        <label for="pass">Пароль</label>
+        <input type="password" name="password" id="password" v-model="pValue" @blur="pBlur" />
+        <small>{{ pError }}</small>
+        <label for="password">Пароль</label>
         <span class="spin"></span>
       </div>
 
       <div class="login-button">
-        <button class="btn btn-large btn-login btn-accent" @click="$emit('login')">
+        <button class="btn btn-large btn-login btn-accent" :disabled="isSubmitting">
           ВОЙТИ В АККАУНТ
         </button>
       </div>
     </div>
-  </div>
+  </form>
 </template>
 <script>
+import { useLoginForm } from '../use/loginForm';
+
 export default {
-  methods: {},
+  setup() {
+    return { ...useLoginForm() };
+  },
 };
 </script>

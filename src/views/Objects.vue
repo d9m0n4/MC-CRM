@@ -1,6 +1,7 @@
 <template>
   <div class="houses-list">
     <appContentActions :btns="['Добавить дом', 'Добавить помещение']" />
+    <button class="btn btn-accent btn-large" @click="openModal">Добавить</button>
     <div class="houses-list-table">
       <table class="table">
         <thead>
@@ -105,13 +106,26 @@
         </tbody>
       </table>
     </div>
+    <addObjectModal v-if="isOpen" @closeModal="isOpen = false" />
   </div>
 </template>
+
 <script>
-import appContentActions from '../components/appContentActions';
+import addObjectModal from '../components/addObjectModal';
+
 export default {
+  data() {
+    return {
+      isOpen: false,
+    };
+  },
+  methods: {
+    openModal() {
+      this.isOpen = true;
+    },
+  },
   components: {
-    appContentActions,
+    addObjectModal,
   },
 };
 </script>

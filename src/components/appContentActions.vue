@@ -1,7 +1,12 @@
 <template>
   <div class="app-content-actions">
     <div class="add-buttons">
-      <button class="btn btn-accent btn-large" v-for="(item, id) in items" :key="id">
+      <button
+        class="btn btn-accent btn-large"
+        v-for="(item, id) in items"
+        :key="id"
+        @click="$emit('userEvent')"
+      >
         {{ item }}
       </button>
     </div>

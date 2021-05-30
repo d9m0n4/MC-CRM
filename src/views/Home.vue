@@ -17,7 +17,7 @@
       </div>
       <div class="widget-panel">
         <div class="widget-panel-chart">
-          <img src="../assets/img/chart.png" alt="" />
+          <chart />
         </div>
       </div>
       <div class="widget-panel">
@@ -142,7 +142,9 @@
 </template>
 
 <script>
+import chart from '../plugins/chart/chart.vue';
 export default {
+  components: { chart },
   data() {
     return {
       isActive: false,
