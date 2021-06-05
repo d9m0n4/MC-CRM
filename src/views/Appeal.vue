@@ -1,6 +1,6 @@
 <template>
   <div class="votes-list">
-    <appContentActions />
+    <AppContentActions />
     <div class="votes-list-table">
       <table class="table">
         <thead>
@@ -27,10 +27,10 @@
 </template>
 
 <script>
-import appContentActions from '../components/appContentActions';
+import AppContentActions from '../components/AppContentActions';
 export default {
   components: {
-    appContentActions,
+    AppContentActions,
   },
 };
 </script>

@@ -8,6 +8,7 @@ import Requests from '../views/Requests.vue';
 import Votes from '../views/Votes.vue';
 import Appeal from '../views/Appeal.vue';
 import Service from '../views/Service.vue';
+import AddObjectModal from '../components/AddObjectModal.vue';
 
 import store from '../store/index';
 

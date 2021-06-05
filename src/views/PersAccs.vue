@@ -1,6 +1,6 @@
 <template>
   <div class="personal-accaunts">
-    <appContentActions :btns="['Добавить лицевой счет']" />
+    <AppContentActions :btns="['Добавить лицевой счет']" />
     <div class="houses-list-table">
       <table class="table">
         <thead>
@@ -75,10 +75,10 @@
   </div>
 </template>
 <script>
-import appContentActions from '../components/appContentActions';
+import AppContentActions from '../components/AppContentActions';
 export default {
   components: {
-    appContentActions,
+    AppContentActions,
   },
 };
 </script>

@@ -1,9 +1,12 @@
 import { createStore } from 'vuex';
 import auth from './modules/auth.module';
+import objects from './modules/objects.module';
+
 export default createStore({
   state() {
     return {
       message: '',
+      modal: null,
     };
   },
   mutations: {
@@ -12,6 +15,12 @@ export default createStore({
     },
     clearMessage(state) {
       state.message = null;
+    },
+    openModal(state) {
+      state.modal = true;
+    },
+    closeModal(state) {
+      state.modal = null;
     },
   },
   actions: {
@@ -26,8 +35,12 @@ export default createStore({
     message(state) {
       return state.message;
     },
+    modal(state) {
+      return state.modal;
+    },
   },
   modules: {
     auth,
+    objects,
   },
 });

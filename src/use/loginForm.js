@@ -21,6 +21,7 @@ export function useLoginForm() {
   );
   const onSubmit = handleSubmit(async (values) => {
     try {
+      console.log(values);
       await store.dispatch('auth/login', values);
     } catch (e) {
       throw new Error(e);

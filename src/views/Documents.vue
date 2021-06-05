@@ -1,6 +1,6 @@
 <template>
   <div class="document-list">
-    <appContentActions :btns="['Добавить договор']" />
+    <AppContentActions :btns="['Добавить договор']" />
     <div class="dashboard">
       <div class="documents-tabs">
         <div class="tabs">
@@ -142,7 +142,7 @@
 </template>
 
 <script>
-import appContentActions from '../components/appContentActions';
+import AppContentActions from '../components/AppContentActions';
 export default {
   data() {
     return {
@@ -150,7 +150,7 @@ export default {
     };
   },
   components: {
-    appContentActions,
+    AppContentActions,
   },
 };
 </script>

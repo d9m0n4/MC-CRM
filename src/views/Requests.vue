@@ -1,6 +1,6 @@
 <template>
   <div class="requests-list">
-    <appContentActions :btns="['Создать заявку']" />
+    <AppContentActions :btns="['Создать заявку']" />
     <div class="requests-list-table">
       <table class="table">
         <thead>
@@ -29,10 +29,10 @@
 </template>
 
 <script>
-import appContentActions from '../components/appContentActions';
+import AppContentActions from '../components/AppContentActions';
 export default {
   components: {
-    appContentActions,
+    AppContentActions,
   },
 };
 </script>

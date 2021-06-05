@@ -1,8 +1,14 @@
 <template>
+  <add-object-modal v-if="isOpen" />
   <div class="houses-list">
-    <appContentActions :btns="['Добавить дом', 'Добавить помещение']" />
-    <button class="btn btn-accent btn-large" @click="openModal">Добавить</button>
-    <div class="houses-list-table">
+    <AppContentActions
+      :btns="[
+        { name: 'Добавить дом', event: addObjectsMoadl },
+        { name: 'Добавить помещение', event: addFlatMoadl },
+      ]"
+      @search="search"
+    />
+    <div class="houses-list-table" v-if="objects.length !== 0">
       <table class="table">
         <thead>
           <tr>
@@ -13,119 +19,56 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1.</td>
-            <td>612260, обл Кировская, р-н Яранский, г Яранск, ул Строительная, д. 9</td>
-            <td>4350,73 м.кв</td>
-            <td>1985 г.</td>
-          </tr>
-          <tr>
-            <td>1.</td>
-            <td>612260, обл Кировская, р-н Яранский, г Яранск, ул Строительная, д. 9</td>
-            <td>4350,73 м.кв</td>
-            <td>1985 г.</td>
-          </tr>
-          <tr>
-            <td>1.</td>
-            <td>612260, обл Кировская, р-н Яранский, г Яранск, ул Строительная, д. 9</td>
-            <td>4350,73 м.кв</td>
-            <td>1985 г.</td>
-          </tr>
-          <tr>
-            <td>1.</td>
-            <td>612260, обл Кировская, р-н Яранский, г Яранск, ул Строительная, д. 9</td>
-            <td>4350,73 м.кв</td>
-            <td>1985 г.</td>
-          </tr>
-          <tr>
-            <td>1.</td>
-            <td>612260, обл Кировская, р-н Яранский, г Яранск, ул Строительная, д. 9</td>
-            <td>4350,73 м.кв</td>
-            <td>1985 г.</td>
-          </tr>
-          <tr>
-            <td>1.</td>
-            <td>612260, обл Кировская, р-н Яранский, г Яранск, ул Строительная, д. 9</td>
-            <td>4350,73 м.кв</td>
-            <td>1985 г.</td>
-          </tr>
-          <tr>
-            <td>1.</td>
-            <td>612260, обл Кировская, р-н Яранский, г Яранск, ул Строительная, д. 9</td>
-            <td>4350,73 м.кв</td>
-            <td>1985 г.</td>
-          </tr>
-          <tr>
-            <td>1.</td>
-            <td>612260, обл Кировская, р-н Яранский, г Яранск, ул Строительная, д. 9</td>
-            <td>4350,73 м.кв</td>
-            <td>1985 г.</td>
-          </tr>
-          <tr>
-            <td>1.</td>
-            <td>612260, обл Кировская, р-н Яранский, г Яранск, ул Строительная, д. 9</td>
-            <td>4350,73 м.кв</td>
-            <td>1985 г.</td>
-          </tr>
-          <tr>
-            <td>1.</td>
-            <td>612260, обл Кировская, р-н Яранский, г Яранск, ул Строительная, д. 9</td>
-            <td>4350,73 м.кв</td>
-            <td>1985 г.</td>
-          </tr>
-          <tr>
-            <td>1.</td>
-            <td>612260, обл Кировская, р-н Яранский, г Яранск, ул Строительная, д. 9</td>
-            <td>4350,73 м.кв</td>
-            <td>1985 г.</td>
-          </tr>
-          <tr>
-            <td>1.</td>
-            <td>612260, обл Кировская, р-н Яранский, г Яранск, ул Строительная, д. 9</td>
-            <td>4350,73 м.кв</td>
-            <td>1985 г.</td>
-          </tr>
-          <tr>
-            <td>1.</td>
-            <td>612260, обл Кировская, р-н Яранский, г Яранск, ул Строительная, д. 9</td>
-            <td>4350,73 м.кв</td>
-            <td>1985 г.</td>
-          </tr>
-          <tr>
-            <td>1.</td>
-            <td>612260, обл Кировская, р-н Яранский, г Яранск, ул Строительная, д. 9</td>
-            <td>4350,73 м.кв</td>
-            <td>1985 г.</td>
-          </tr>
-          <tr>
-            <td>1.</td>
-            <td>612260, обл Кировская, р-н Яранский, г Яранск, ул Строительная, д. 9</td>
-            <td>4350,73 м.кв</td>
-            <td>1985 г.</td>
+          <tr v-for="(object, id) in objects" :key="id">
+            <td>{{ id + 1 }}</td>
+            <td>{{ object.adr }}</td>
+            <td>{{ object.area }}</td>
+            <td>{{ object.year }}</td>
           </tr>
         </tbody>
       </table>
     </div>
-    <addObjectModal v-if="isOpen" @closeModal="isOpen = false" />
+    <div class="empty" v-else>Нет объектов</div>
   </div>
 </template>
 
 <script>
-import addObjectModal from '../components/addObjectModal';
-
+import AddObjectModal from '../components/AddObjectModal';
+import AppContentActions from '../components/AppContentActions';
+import { useStore } from 'vuex';
+import { computed, onMounted } from 'vue';
 export default {
-  data() {
-    return {
-      isOpen: false,
-    };
-  },
-  methods: {
-    openModal() {
-      this.isOpen = true;
-    },
-  },
   components: {
-    addObjectModal,
+    AddObjectModal,
+    AppContentActions,
+  },
+  methods: {},
+  setup() {
+    const store = useStore();
+    const isOpen = computed(() => store.getters['modal']);
+
+    const objects = computed(() => store.getters['objects/objects']);
+
+    onMounted(async () => {
+      await store.dispatch('objects/loadObjects');
+    });
+
+    const addObjectsMoadl = () => {
+      store.commit('openModal');
+    };
+    const addFlatMoadl = () => {
+      console.log('2');
+    };
+    const search = () => {
+      console.log('search');
+    };
+    return {
+      addObjectsMoadl,
+      addFlatMoadl,
+      search,
+      isOpen,
+      objects,
+    };
   },
 };
 </script>
