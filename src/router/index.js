@@ -1,14 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Login from '../views/Login.vue';
 import Home from '../views/Home.vue';
-import Objects from '../views/Objects.vue';
 import PersAccs from '../views/PersAccs.vue';
 import Documents from '../views/Documents.vue';
 import Requests from '../views/Requests.vue';
 import Votes from '../views/Votes.vue';
 import Appeal from '../views/Appeal.vue';
 import Service from '../views/Service.vue';
-import AddObjectModal from '../components/AddObjectModal.vue';
 
 import store from '../store/index';
 
@@ -31,8 +29,17 @@ const routes = [
   },
   {
     path: '/objects',
-    component: Objects,
+    component: () => import('../views/Objects.vue'),
     name: 'Объекты',
+    meta: {
+      layout: 'main',
+      auth: true,
+    },
+  },
+  {
+    path: '/objects/:id',
+    component: () => import('../components/AddObjectModal.vue'),
+    name: 'object',
     meta: {
       layout: 'main',
       auth: true,

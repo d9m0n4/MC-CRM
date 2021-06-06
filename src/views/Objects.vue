@@ -1,4 +1,5 @@
 <template>
+  <app-loader v-if="isLoading" />
   <add-object-modal v-if="isOpen" />
   <div class="houses-list">
     <AppContentActions
@@ -18,9 +19,8 @@
             <th>Год постройки</th>
           </tr>
         </thead>
-        <app-loader v-if="isLoading" />
-        <tbody v-else>
-          <tr v-for="(object, id) in objects" :key="id">
+        <tbody>
+          <tr v-for="(object, id) in objects" :key="id" @dblclick="open(object.id)">
             <td>{{ id + 1 }}</td>
             <td>{{ object.adr }}</td>
             <td>{{ object.area }}</td>
@@ -28,7 +28,9 @@
           </tr>
         </tbody>
       </table>
+      <object-item />
     </div>
+    <div class="empty" v-else>Нет объектов</div>
   </div>
 </template>
 
@@ -37,18 +39,23 @@ import AddObjectModal from '../components/AddObjectModal';
 import AppLoader from '../components/AppLoader.vue';
 import AppContentActions from '../components/AppContentActions';
 import { useStore } from 'vuex';
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, onUpdated } from 'vue';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import ObjectItem from './ObjectItem.vue';
+
 export default {
   components: {
     AddObjectModal,
     AppContentActions,
     AppLoader,
+    ObjectItem,
   },
   methods: {},
   setup() {
     const isLoading = ref(true);
     const store = useStore();
+    const router = useRouter();
     const isOpen = computed(() => store.getters['modal']);
 
     const objects = computed(() => store.getters['objects/objects']);
@@ -57,6 +64,10 @@ export default {
       isLoading.value = true;
       await store.dispatch('objects/loadObjects');
       isLoading.value = false;
+    });
+
+    onUpdated(() => {
+      store.dispatch('objects/loadObjects');
     });
 
     const addObjectsMoadl = () => {
@@ -68,6 +79,10 @@ export default {
     const search = () => {
       console.log('search');
     };
+
+    const open = async (id) => {
+      await router.push({ name: 'object', params: { id } });
+    };
     return {
       addObjectsMoadl,
       addFlatMoadl,
@@ -75,6 +90,7 @@ export default {
       isOpen,
       objects,
       isLoading,
+      open,
     };
   },
 };

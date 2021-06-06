@@ -46,7 +46,7 @@ export default {
         dispatch(
           'setMessage',
           {
-            value: error(e.response.data.error.message),
+            value: error(e.response),
             type: 'danger',
           },
           { root: true },
