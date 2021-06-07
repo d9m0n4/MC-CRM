@@ -1210,6 +1210,7 @@ ul {
   }
   &-body {
     &__top-info {
+      margin-bottom: 32px;
       display: flex;
       justify-content: space-between;
       .object__info {
@@ -1226,24 +1227,36 @@ ul {
     }
     &__table {
       width: 100%;
-      .object__table {
+      label {
+        color: $gray;
+      }
+      .object__item-table {
+        margin-top: 8px;
         width: 100%;
-        padding: 16px;
+        padding: 16px 24px;
         background: #ffffff;
         box-shadow: 2px 2px 8px 2px rgba(0, 0, 0, 0.25);
         border-radius: 4px;
-        border-collapse: collapse;
-        thead {
-          text-align-last: left;
-          font-weight: normal;
-          color: $gray;
-          th {
-            padding: 0 0 8px 0;
+        .item__table {
+          border-collapse: collapse;
+          width: 100%;
+          thead {
+            text-align-last: left;
+            font-weight: normal;
+            color: $gray;
+            th {
+              padding: 8px;
+              font-weight: normal;
+            }
           }
-        }
-        tbody {
-          tr {
-            border-bottom: 1px solid rgba(30, 35, 55, 0.7);
+          tbody {
+            tr {
+              border-bottom: 1px solid rgba($color: $sapphire, $alpha: 0.5);
+
+              td {
+                padding: 8px 8px 0 8px;
+              }
+            }
           }
         }
       }

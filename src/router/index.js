@@ -37,8 +37,8 @@ const routes = [
     },
   },
   {
-    path: '/objects/:id',
-    component: () => import('../components/AddObjectModal.vue'),
+    path: '/objects/object:id',
+    component: () => import('../views/ObjectItem.vue'),
     name: 'object',
     meta: {
       layout: 'main',

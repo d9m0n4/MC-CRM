@@ -53,6 +53,23 @@ export default {
         );
       }
     },
+    async loadOneObject({ commit, dispatch }, id) {
+      try {
+        const token = store.getters['auth/token'];
+        const { data } = await axios.get(`/objects/${id}.json?auth=${token}`);
+
+        return data;
+      } catch (e) {
+        dispatch(
+          'setMessage',
+          {
+            value: error(e.response),
+            type: 'danger',
+          },
+          { root: true },
+        );
+      }
+    },
   },
 
   getters: {

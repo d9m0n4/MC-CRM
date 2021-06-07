@@ -28,7 +28,6 @@
           </tr>
         </tbody>
       </table>
-      <object-item />
     </div>
     <div class="empty" v-else>Нет объектов</div>
   </div>
