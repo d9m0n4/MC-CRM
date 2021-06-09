@@ -1134,11 +1134,30 @@ ul {
             &.input {
               flex: 0 0 60%;
               color: $accent-dark;
-              .address-input {
+              .suggestions-input {
                 border: none;
                 width: 100%;
                 border-bottom: 1px solid $accent-dark;
                 padding: 2px 4px;
+              }
+              .suggestions-wrapper {
+                display: flex;
+                position: relative;
+
+                .suggestions-suggestions {
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 300px;
+                  background-color: rgba(204, 204, 204, 0.952);
+                  font-size: 16px;
+                  padding: 8px;
+                  border-radius: 4px;
+                  .suggestions-suggestion {
+                    cursor: pointer;
+                    padding: 4px;
+                  }
+                }
               }
             }
           }

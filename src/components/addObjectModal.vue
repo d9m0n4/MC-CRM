@@ -13,42 +13,56 @@
           <div class="form-field-row">
             <div class="field-cell">Регион/район</div>
             <div class="field-cell input">
-              <input type="text" class="address-input" v-model="region" />
+              <VueSuggestions
+                :model="region"
+                :placeholder="'Начните вводить'"
+                :options="{ ...suggestionOptions, bounds: 'region' }"
+              >
+              </VueSuggestions>
             </div>
           </div>
           <div class="form-field-row">
             <div class="field-cell">Город/ н.п.</div>
             <div class="field-cell input">
-              <input type="text" class="address-input" v-model="city" />
+              <VueSuggestions
+                :model="city"
+                :placeholder="'Начните вводить'"
+                :options="{ ...suggestionOptions, bounds: 'city' }"
+              >
+              </VueSuggestions>
             </div>
           </div>
           <div class="form-field-row">
             <div class="field-cell">Улица</div>
             <div class="field-cell input">
-              <input type="text" class="address-input" v-model="street" />
+              <VueSuggestions
+                :model="street"
+                :placeholder="'Начните вводить'"
+                :options="{ ...suggestionOptions, bounds: 'street' }"
+              >
+              </VueSuggestions>
             </div>
           </div>
           <div class="form-field-row">
             <div class="field-cell">Дом</div>
             <div class="field-cell input">
-              <input type="text" class="address-input" v-model="house" />
+              <input type="text" class="suggestions-input" v-model="house" />
             </div>
           </div>
           <div class="form-field-row">
             <div class="field-cell">Площадь</div>
             <div class="field-cell input">
-              <input type="text" class="address-input" v-model="area" />
+              <input type="text" class="suggestions-input" v-model="area" />
             </div>
           </div>
           <div class="form-field-row">
             <div class="field-cell">Год постройки</div>
             <div class="field-cell input">
-              <input type="text" class="address-input" v-model.number="year" />
+              <input type="text" class="suggestions-input" v-model.number="year" />
             </div>
           </div>
         </div>
       </div>
-
       <div class="modal-footer">
         <button class="btn btn-accent btn-large">Добавить</button>
       </div>
@@ -56,9 +70,11 @@
   </div>
 </template>
 <script>
+import VueSuggestions from 'vue-suggestions';
 import { ref } from '@vue/reactivity';
 import { useStore } from 'vuex';
-
+import fetchData from '../api/dadataAPI';
+import { watch } from '@vue/runtime-core';
 export default {
   setup() {
     const store = useStore();
@@ -69,6 +85,8 @@ export default {
     const house = ref(null);
     const area = ref(null);
     const year = ref(null);
+    const response = ref([]);
+    const boundType = ref('');
 
     const closeModal = () => {
       store.commit('closeModal');
@@ -100,6 +118,25 @@ export default {
       closeModal();
     };
 
+    const select = (obj) => {
+      console.log(123123);
+      region.value = obj;
+    };
+
+    watch(region.value, (val) => console.log(val));
+
+    const suggestionOptions = {
+      token: '77c78afe2f24aa68ff117d56619132563ed661dc',
+      type: 'ADDRESS',
+      scrollOnFocus: false,
+      triggerSelectOnBlur: true,
+      triggerSelectOnEnter: true,
+      addon: 'spinner',
+      onSelect(suggestion) {
+        console.log(suggestion);
+      },
+    };
+
     return {
       closeModal,
       region,
@@ -109,7 +146,15 @@ export default {
       area,
       year,
       onSubmit,
+      fetchData,
+      response,
+      select,
+      suggestionOptions,
+      boundType,
     };
+  },
+  components: {
+    VueSuggestions,
   },
 };
 </script>

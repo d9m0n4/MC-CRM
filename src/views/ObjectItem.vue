@@ -15,15 +15,15 @@
         <div class="object__info">
           <div class="object__info-row">
             <div class="object__info-row__title">Регион/ район</div>
-            <div class="object__info-row__text">{{ 2 }}</div>
+            <div class="object__info-row__text">{{ address.region }}</div>
           </div>
           <div class="object__info-row">
             <div class="object__info-row__title">Город/ н.п.</div>
-            <div class="object__info-row__text">{{ 2 }}</div>
+            <div class="object__info-row__text">{{ address.city }}</div>
           </div>
           <div class="object__info-row">
             <div class="object__info-row__title">Улица</div>
-            <div class="object__info-row__text">{{ 2 }}</div>
+            <div class="object__info-row__text">{{ address.street }}</div>
           </div>
           <div class="object__info-row">
             <div class="object__info-row__title">Год постройки</div>
@@ -33,7 +33,7 @@
         <div class="object__info">
           <div class="object__info-row">
             <div class="object__info-row__title">Дом</div>
-            <div class="object__info-row__text">{{ object.address }}</div>
+            <div class="object__info-row__text">{{ address.house }}</div>
           </div>
           <div class="object__info-row">
             <div class="object__info-row__title">Индекс</div>
@@ -83,18 +83,21 @@ export default {
     const route = useRoute();
     const store = useStore();
     const object = ref({});
+    const address = ref({});
 
     const isLoading = ref(true);
 
     onMounted(async () => {
       isLoading.value = true;
       object.value = await store.dispatch('objects/loadOneObject', route.params.id);
-      console.log(object.value);
+      address.value = object.value.address;
+
       isLoading.value = false;
     });
 
     return {
       object,
+      address,
       isLoading,
     };
   },

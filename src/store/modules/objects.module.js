@@ -57,7 +57,6 @@ export default {
       try {
         const token = store.getters['auth/token'];
         const { data } = await axios.get(`/objects/${id}.json?auth=${token}`);
-
         return data;
       } catch (e) {
         dispatch(
