@@ -14,9 +14,10 @@
             <div class="field-cell">Регион/район</div>
             <div class="field-cell input">
               <VueSuggestions
-                :model="region"
+                v-model:model="region"
                 :placeholder="'Начните вводить'"
                 :options="{ ...suggestionOptions, bounds: 'region' }"
+                :id="'region'"
               >
               </VueSuggestions>
             </div>
@@ -25,9 +26,15 @@
             <div class="field-cell">Город/ н.п.</div>
             <div class="field-cell input">
               <VueSuggestions
-                :model="city"
+                v-model:model="city"
                 :placeholder="'Начните вводить'"
-                :options="{ ...suggestionOptions, bounds: 'city' }"
+                :options="{
+                  ...suggestionOptions,
+                  bounds: 'city-settlement',
+                  constraints: '#region',
+                  count: 5,
+                }"
+                :id="'city'"
               >
               </VueSuggestions>
             </div>
@@ -36,9 +43,15 @@
             <div class="field-cell">Улица</div>
             <div class="field-cell input">
               <VueSuggestions
-                :model="street"
+                v-model:model="street"
                 :placeholder="'Начните вводить'"
-                :options="{ ...suggestionOptions, bounds: 'street' }"
+                :options="{
+                  ...suggestionOptions,
+                  bounds: 'street',
+                  constraints: '#city',
+                  count: 5,
+                }"
+                :id="'street'"
               >
               </VueSuggestions>
             </div>
@@ -46,19 +59,31 @@
           <div class="form-field-row">
             <div class="field-cell">Дом</div>
             <div class="field-cell input">
-              <input type="text" class="suggestions-input" v-model="house" />
+              <VueSuggestions
+                v-model:model="house"
+                :placeholder="'Начните вводить'"
+                :options="{
+                  ...suggestionOptions,
+                  noSuggestionsHint: false,
+                  bounds: 'house',
+                  constraints: '#street',
+                  count: 5,
+                }"
+                :id="'house'"
+              >
+              </VueSuggestions>
             </div>
           </div>
           <div class="form-field-row">
             <div class="field-cell">Площадь</div>
             <div class="field-cell input">
-              <input type="text" class="suggestions-input" v-model="area" />
+              <input type="text" class="suggestions-input" v-model="area" required />
             </div>
           </div>
           <div class="form-field-row">
             <div class="field-cell">Год постройки</div>
             <div class="field-cell input">
-              <input type="text" class="suggestions-input" v-model.number="year" />
+              <input type="text" class="suggestions-input" v-model.number="year" required />
             </div>
           </div>
         </div>
@@ -74,7 +99,6 @@ import VueSuggestions from 'vue-suggestions';
 import { ref } from '@vue/reactivity';
 import { useStore } from 'vuex';
 import fetchData from '../api/dadataAPI';
-import { watch } from '@vue/runtime-core';
 export default {
   setup() {
     const store = useStore();
@@ -85,8 +109,9 @@ export default {
     const house = ref(null);
     const area = ref(null);
     const year = ref(null);
-    const response = ref([]);
     const boundType = ref('');
+    const fullAddr = ref(null);
+    const postalCode = ref(null);
 
     const closeModal = () => {
       store.commit('closeModal');
@@ -95,11 +120,13 @@ export default {
     const onSubmit = async () => {
       let data = {
         address: {
+          postalCode: postalCode.value,
           region: region.value,
           city: city.value,
           street: street.value,
           house: house.value,
         },
+        fullAddress: fullAddr.value,
         area: area.value,
         year: year.value,
         get adr() {
@@ -108,7 +135,7 @@ export default {
       };
 
       await store.dispatch('objects/addObject', data);
-
+      console.log(data);
       region.value = null;
       city.value = null;
       street.value = null;
@@ -123,17 +150,19 @@ export default {
       region.value = obj;
     };
 
-    watch(region.value, (val) => console.log(val));
-
     const suggestionOptions = {
       token: '77c78afe2f24aa68ff117d56619132563ed661dc',
       type: 'ADDRESS',
       scrollOnFocus: false,
       triggerSelectOnBlur: true,
       triggerSelectOnEnter: true,
-      addon: 'spinner',
+      autocorrect: 'on',
+      spellcheck: true,
+      addon: 'none',
       onSelect(suggestion) {
-        console.log(suggestion);
+        fullAddr.value = suggestion.unrestricted_value;
+        postalCode.value = suggestion.data.postal_code;
+        console.log(fullAddr.value, suggestion);
       },
     };
 
@@ -147,7 +176,6 @@ export default {
       year,
       onSubmit,
       fetchData,
-      response,
       select,
       suggestionOptions,
       boundType,

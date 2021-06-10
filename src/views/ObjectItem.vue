@@ -37,7 +37,7 @@
           </div>
           <div class="object__info-row">
             <div class="object__info-row__title">Индекс</div>
-            <div class="object__info-row__text">612260</div>
+            <div class="object__info-row__text">{{ address.postalCode }}</div>
           </div>
           <div class="object__info-row">
             <div class="object__info-row__title">Площадь</div>
@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import { computed, onMounted } from '@vue/runtime-core';
+import { onMounted } from '@vue/runtime-core';
 import { useRoute } from 'vue-router';
 import { useStore } from 'vuex';
 import { ref } from 'vue';
@@ -91,7 +91,6 @@ export default {
       isLoading.value = true;
       object.value = await store.dispatch('objects/loadOneObject', route.params.id);
       address.value = object.value.address;
-
       isLoading.value = false;
     });
 

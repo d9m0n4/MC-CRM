@@ -22,14 +22,16 @@
         <tbody>
           <tr v-for="(object, id) in objects" :key="id" @dblclick="open(object.id)">
             <td>{{ id + 1 }}</td>
-            <td>{{ object.adr }}</td>
+            <td>{{ object.fullAddress }}</td>
             <td>{{ object.area }}</td>
             <td>{{ object.year }}</td>
           </tr>
         </tbody>
       </table>
     </div>
-    <div class="empty" v-else>Нет объектов</div>
+    <div class="empty-objects" v-else>
+      <img src="../assets/img/icons/empty-objects.svg" alt="" />Нет объектов
+    </div>
   </div>
 </template>
 

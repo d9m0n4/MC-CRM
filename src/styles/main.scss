@@ -1,6 +1,7 @@
 @import 'vars';
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
 @import 'app-loader.scss';
+@import 'suggestions/main.scss';
 
 ::placeholder {
   color: #666;
@@ -48,6 +49,10 @@ body {
       border-color: $success;
     }
   }
+}
+
+input {
+  font-family: 'Lato', sans-serif;
 }
 
 .btn {
@@ -214,18 +219,19 @@ ul {
       &-list {
         a {
           color: #fff;
+          padding: 10px 24px;
+          width: 100%;
+
           &.active {
+            background-color: rgba($color: #000000, $alpha: 0.3);
+          }
+          &:hover {
             background-color: rgba($color: #000000, $alpha: 0.3);
           }
         }
         &_item {
-          padding: 10px 24px;
           cursor: pointer;
           display: flex;
-          &:hover {
-            background-color: rgba($color: #000000, $alpha: 0.3);
-            padding: 10px 24px;
-          }
         }
       }
     }
@@ -593,6 +599,14 @@ ul {
     }
     .houses-list {
       height: 100%;
+      .empty-objects {
+        margin: 15% auto 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 32px;
+        width: 200px;
+      }
     }
   }
 }
@@ -1127,7 +1141,7 @@ ul {
       .form-field {
         &-row {
           display: flex;
-          margin-bottom: 16px;
+          margin-bottom: 24px;
           .field-cell {
             flex: 0 0 35%;
             color: $gray;
@@ -1139,17 +1153,21 @@ ul {
                 width: 100%;
                 border-bottom: 1px solid $accent-dark;
                 padding: 2px 4px;
+                font-size: 16px;
               }
               .suggestions-wrapper {
                 display: flex;
                 position: relative;
-
+                .suggestions-addon {
+                  width: 0;
+                  height: 0 !important;
+                }
                 .suggestions-suggestions {
                   position: absolute;
                   top: 0;
                   left: 0;
                   width: 300px;
-                  background-color: rgba(204, 204, 204, 0.952);
+                  background-color: rgba(255, 255, 255, 0.952);
                   font-size: 16px;
                   padding: 8px;
                   border-radius: 4px;
