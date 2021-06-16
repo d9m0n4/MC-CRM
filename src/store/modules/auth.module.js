@@ -32,6 +32,7 @@ export default {
         console.log(data);
         router.push('/');
       } catch (e) {
+        console.log(e.response.data);
         dispatch(
           'setMessage',
           {

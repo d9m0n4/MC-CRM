@@ -4,7 +4,9 @@
     <div class="object__item-header">
       <div class="object__item-header__group">
         <div class="title">Объект управления</div>
-        <div class="edit-btn"><img src="../assets/img/icons/edit-icon.svg" alt="" /></div>
+        <div class="edit-btn" @click="editForm" v-if="!onEditing">
+          <img src="../assets/img/icons/edit-icon.svg" alt="" />
+        </div>
       </div>
       <div class="object__item-header__closebtn">
         <img src="../assets/img/icons/close.svg" alt="" />
@@ -27,7 +29,7 @@
           </div>
           <div class="object__info-row">
             <div class="object__info-row__title">Год постройки</div>
-            <div class="object__info-row__text">{{ object.year }}</div>
+            <div class="object__info-row__text">{{ object.year }} год</div>
           </div>
         </div>
         <div class="object__info">
@@ -41,31 +43,50 @@
           </div>
           <div class="object__info-row">
             <div class="object__info-row__title">Площадь</div>
-            <div class="object__info-row__text">{{ object.area }}</div>
+            <div class="object__info-row__text">{{ object.area }} м.кв</div>
           </div>
         </div>
       </div>
       <div class="object__item-body__table">
-        <label for="table">Помещения</label>
+        <caption for="table">
+          Помещения
+        </caption>
         <div class="object__item-table">
           <table id="table" class="item__table">
             <thead>
               <tr>
+                <th>№ п/п</th>
                 <th>№ Помещения</th>
                 <th>Собственник</th>
-                <th>Площадь</th>
+                <th @click="sortByArea">Площадь</th>
                 <th>Лицевой счет</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>кв. 1</td>
-                <td>Иванов Иван Иванович</td>
-                <td>32,90</td>
-                <td>56942</td>
+              <tr v-for="(flat, index) in quarters" :key="index">
+                <td>{{ `${index + 1} ` < 10 ? `0${index + 1}` : `${index + 1}` }}</td>
+                <td :contenteditable="onEditing">
+                  {{ flat.flatNum }}
+                </td>
+                <td :contenteditable="onEditing">Иванов Иван Иванович</td>
+                <td :contenteditable="onEditing">{{ flat.flatArea }} м.кв</td>
+                <td :contenteditable="onEditing"></td>
+              </tr>
+
+              <tr class="empty-row" v-if="onEditing">
+                <td class="empty-cell" colspan="5">
+                  <img class="add-icon" src="../assets/img/icons/add-icon.svg" @click="addItem" />
+                </td>
               </tr>
             </tbody>
           </table>
+          <button
+            class="btn btn-accent btn-large"
+            v-if="onEditing && persAccs.length !== 0"
+            @click="onSave"
+          >
+            Сохранить
+          </button>
         </div>
       </div>
     </div>
@@ -84,6 +105,10 @@ export default {
     const store = useStore();
     const object = ref({});
     const address = ref({});
+    const quarters = ref('');
+    const onEditing = ref(false);
+
+    const persAccs = ref([]);
 
     const isLoading = ref(true);
 
@@ -91,13 +116,38 @@ export default {
       isLoading.value = true;
       object.value = await store.dispatch('objects/loadOneObject', route.params.id);
       address.value = object.value.address;
+      quarters.value = object.value.quarters;
+      quarters.value.sort((a, b) => a.flatNum - b.flatNum);
       isLoading.value = false;
     });
+
+    const sortByArea = () => {
+      quarters.value.sort((a, b) => a.flatArea - b.flatArea);
+    };
+
+    const editForm = () => {
+      onEditing.value = true;
+    };
+
+    const addItem = () => {
+      console.log(persAccs.value);
+    };
+
+    const onSave = () => {
+      onEditing.value = false;
+    };
 
     return {
       object,
       address,
       isLoading,
+      persAccs,
+      onEditing,
+      editForm,
+      addItem,
+      onSave,
+      quarters,
+      sortByArea,
     };
   },
   components: {

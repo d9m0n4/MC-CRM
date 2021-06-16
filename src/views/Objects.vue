@@ -1,11 +1,12 @@
 <template>
   <app-loader v-if="isLoading" />
-  <add-object-modal v-if="isOpen" />
+  <add-object-modal v-if="isOMOpen" @close="isOMOpen = !isOMOpen" />
+  <add-flatmodal v-if="isFMOpen" @close="isFMOpen = !isFMOpen" />
   <div class="houses-list">
     <AppContentActions
       :btns="[
         { name: 'Добавить дом', event: addObjectsMoadl },
-        { name: 'Добавить помещение', event: addFlatMoadl },
+        { name: 'Добавить помещение', event: addFlatModal },
       ]"
       @search="search"
     />
@@ -14,17 +15,17 @@
         <thead>
           <tr>
             <th>№ п/п</th>
-            <th>Адрес</th>
-            <th>Площадь</th>
+            <th class="ta-l">Адрес</th>
+            <th class="ta-l">Площадь</th>
             <th>Год постройки</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(object, id) in objects" :key="id" @dblclick="open(object.id)">
-            <td>{{ id + 1 }}</td>
+            <td class="ta-c">{{ id + 1 }}</td>
             <td>{{ object.fullAddress }}</td>
-            <td>{{ object.area }}</td>
-            <td>{{ object.year }}</td>
+            <td class="ta-l">{{ object.area }} м.кв</td>
+            <td class="ta-c">{{ object.year }} год</td>
           </tr>
         </tbody>
       </table>
@@ -44,6 +45,7 @@ import { computed, onMounted, onUpdated } from 'vue';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import ObjectItem from './ObjectItem.vue';
+import AddFlatmodal from '../components/Objects/addFlatmodal.vue';
 
 export default {
   components: {
@@ -51,13 +53,15 @@ export default {
     AppContentActions,
     AppLoader,
     ObjectItem,
+    AddFlatmodal,
   },
-  methods: {},
   setup() {
     const isLoading = ref(true);
     const store = useStore();
     const router = useRouter();
-    const isOpen = computed(() => store.getters['modal']);
+
+    const isOMOpen = ref(false);
+    const isFMOpen = ref(false);
 
     const objects = computed(() => store.getters['objects/objects']);
 
@@ -72,10 +76,11 @@ export default {
     });
 
     const addObjectsMoadl = () => {
-      store.commit('openModal');
+      isOMOpen.value = true;
     };
-    const addFlatMoadl = () => {
-      console.log('2');
+
+    const addFlatModal = () => {
+      isFMOpen.value = true;
     };
     const search = () => {
       console.log('search');
@@ -86,9 +91,10 @@ export default {
     };
     return {
       addObjectsMoadl,
-      addFlatMoadl,
+      addFlatModal,
       search,
-      isOpen,
+      isOMOpen,
+      isFMOpen,
       objects,
       isLoading,
       open,

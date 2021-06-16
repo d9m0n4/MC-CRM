@@ -6,7 +6,6 @@ export default createStore({
   state() {
     return {
       message: '',
-      modal: null,
     };
   },
   mutations: {
@@ -15,12 +14,6 @@ export default createStore({
     },
     clearMessage(state) {
       state.message = null;
-    },
-    openModal(state) {
-      state.modal = true;
-    },
-    closeModal(state) {
-      state.modal = null;
     },
   },
   actions: {

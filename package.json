@@ -14,7 +14,9 @@
     "v-calendar": "^3.0.0-alpha.4",
     "vee-validate": "^4.4.2",
     "vue": "^3.0.0",
+    "vue-next-select": "^2.6.0",
     "vue-router": "^4.0.0-0",
+    "vue-select": "^3.11.2",
     "vue-suggestions": "^1.4.0",
     "vuex": "^4.0.0-0",
     "yup": "^0.32.9"

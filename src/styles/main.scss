@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
 @import 'app-loader.scss';
 @import 'suggestions/main.scss';
+@import 'select/index.scss';
 
 ::placeholder {
   color: #666;
@@ -31,6 +32,18 @@ a {
   box-sizing: border-box;
 }
 
+.ta-l {
+  text-align: left;
+}
+
+.ta-r {
+  text-align: right;
+}
+
+.ta-c {
+  text-align: center;
+}
+
 body {
   font-size: 18px;
   min-width: 320px;
@@ -53,6 +66,17 @@ body {
 
 input {
   font-family: 'Lato', sans-serif;
+}
+
+.vue-select {
+  width: 100%;
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid #1e2337;
+}
+
+.vue-dropdown-item.highlighted {
+  background-color: rgba($color: #000000, $alpha: 0.3);
 }
 
 .btn {
@@ -618,8 +642,7 @@ ul {
     color: #c4c4c4;
     tr {
       th {
-        text-align: left;
-        padding: 8px;
+        padding: 8px 16px;
         border: none;
         min-width: 70px;
         font-weight: normal;
@@ -1145,10 +1168,15 @@ ul {
           .field-cell {
             flex: 0 0 35%;
             color: $gray;
+            &.select {
+              width: 100%;
+              flex: 0 0 60%;
+            }
             &.input {
               flex: 0 0 60%;
               color: $accent-dark;
-              .suggestions-input {
+              .suggestions-input,
+              .form-input {
                 border: none;
                 width: 100%;
                 border-bottom: 1px solid $accent-dark;
@@ -1288,10 +1316,19 @@ ul {
           }
           tbody {
             tr {
-              border-bottom: 1px solid rgba($color: $sapphire, $alpha: 0.5);
-
+              border-bottom: 1px solid rgba($color: $sapphire, $alpha: 0.2);
+              &.empty-row {
+                border: none;
+              }
               td {
-                padding: 8px 8px 0 8px;
+                padding: 8px 8px 0 16px;
+                &.empty-cell {
+                  text-align: center;
+                  .add-icon {
+                    width: 32px;
+                    cursor: pointer;
+                  }
+                }
               }
             }
           }

@@ -1,10 +1,10 @@
 <template>
   <div class="modal">
-    <div class="bg-layer" @click="closeModal"></div>
+    <div class="bg-layer" @click="$emit('close')"></div>
     <form class="modal-group" @submit.prevent="onSubmit">
       <div class="modal-header">
-        <div class="modal-title">Добавление объекта управления</div>
-        <div class="modal-close-btn" @click="closeModal">
+        <div class="modal-title">Добавить объект управления</div>
+        <div class="modal-close-btn" @click="$emit('close')">
           <img src="../assets/img/icons/close.svg" alt="" />
         </div>
       </div>
@@ -100,7 +100,7 @@ import { ref } from '@vue/reactivity';
 import { useStore } from 'vuex';
 import fetchData from '../api/dadataAPI';
 export default {
-  setup() {
+  setup(_, { emit }) {
     const store = useStore();
 
     const region = ref(null);
@@ -129,9 +129,9 @@ export default {
         fullAddress: fullAddr.value,
         area: area.value,
         year: year.value,
-        get adr() {
-          return Object.values(this.address).join(', ');
-        },
+        // get adr() {
+        //   return Object.values(this.address).join(', ');
+        // },
       };
 
       await store.dispatch('objects/addObject', data);
@@ -142,7 +142,7 @@ export default {
       house.value = null;
       year.value = null;
 
-      closeModal();
+      emit('close');
     };
 
     const select = (obj) => {
@@ -162,7 +162,6 @@ export default {
       onSelect(suggestion) {
         fullAddr.value = suggestion.unrestricted_value;
         postalCode.value = suggestion.data.postal_code;
-        console.log(fullAddr.value, suggestion);
       },
     };
 

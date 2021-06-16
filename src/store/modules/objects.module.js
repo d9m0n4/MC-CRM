@@ -21,8 +21,8 @@ export default {
     async addObject({ commit, dispatch }, object) {
       try {
         const token = store.getters['auth/token'];
-        const { data } = await axios.post(`/objects.json?auth=${token}`, object);
-        console.log(data);
+        await axios.post(`/objects.json?auth=${token}`, object);
+        console.log(object);
         commit('addObject', object);
       } catch (e) {
         dispatch(
@@ -38,11 +38,16 @@ export default {
     async loadObjects({ commit, dispatch }) {
       try {
         const token = store.getters['auth/token'];
+
         const { data } = await axios.get(`/objects.json?auth=${token}`);
-        const response = Object.keys(data).map((id) => ({ ...data[id], id }));
+        const response = Object.keys(data).map((id) => ({
+          ...data[id],
+          id,
+          quarters: data[id].quarters || [],
+        }));
+
         commit('setObject', response);
       } catch (e) {
-        console.log(e.response);
         dispatch(
           'setMessage',
           {
@@ -58,6 +63,24 @@ export default {
         const token = store.getters['auth/token'];
         const { data } = await axios.get(`/objects/${id}.json?auth=${token}`);
         return data;
+      } catch (e) {
+        dispatch(
+          'setMessage',
+          {
+            value: error(e.response),
+            type: 'danger',
+          },
+          { root: true },
+        );
+      }
+    },
+
+    async updateObject({ commit, dispatch }, data) {
+      try {
+        const token = store.getters['auth/token'];
+        await axios.put(`/objects/${data.id}.json?auth=${token}`, { ...data });
+        console.log(data);
+        commit('setObject', { ...data });
       } catch (e) {
         dispatch(
           'setMessage',
