@@ -80,7 +80,6 @@ export default {
         const token = store.getters['auth/token'];
         await axios.put(`/objects/${data.id}.json?auth=${token}`, { ...data });
         console.log(data);
-        commit('setObject', { ...data });
       } catch (e) {
         dispatch(
           'setMessage',
