@@ -45,7 +45,7 @@ import { computed, onMounted, onUpdated } from 'vue';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import ObjectItem from './ObjectItem.vue';
-import AddFlatmodal from '../components/Objects/addFlatmodal.vue';
+import AddFlatmodal from '../components/Objects/AddFlatModal';
 
 export default {
   components: {
@@ -69,6 +69,7 @@ export default {
       isLoading.value = true;
       await store.dispatch('objects/loadObjects');
       isLoading.value = false;
+      console.log(objects.value);
     });
 
     onUpdated(() => {

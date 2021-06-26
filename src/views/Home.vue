@@ -8,7 +8,7 @@
         </div>
         <div class="widget-panel-card">
           <div class="widget-panel-card-title">Лицевых счетов</div>
-          <div class="widget-panel-card-body">1048</div>
+          <div class="widget-panel-card-body">{{ 1048 }}</div>
         </div>
         <div class="widget-panel-card">
           <div class="widget-panel-card-title">Договоров управления</div>
@@ -142,10 +142,23 @@
 </template>
 
 <script>
+import { computed, onMounted, ref } from '@vue/runtime-core';
+import { useStore } from 'vuex';
 import chart from '../plugins/chart/chart.vue';
 export default {
   components: { chart },
   data() {
+    const store = useStore();
+    const objects = computed(() => store.getters['objects/objects']);
+    const isLoading = ref(false);
+
+    onMounted(async () => {
+      isLoading.value = true;
+      await store.dispatch('objects/loadObjects');
+      cons
+      isLoading.value = false;
+    });
+
     return {
       isActive: false,
       isMenuActive: false,

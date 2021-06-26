@@ -117,7 +117,9 @@ export default {
       object.value = await store.dispatch('objects/loadOneObject', route.params.id);
       address.value = object.value.address;
       quarters.value = object.value.quarters;
-      quarters.value.sort((a, b) => a.flatNum - b.flatNum);
+      if (quarters.value) {
+        quarters.value.sort((a, b) => a.flatNum - b.flatNum);
+      }
       isLoading.value = false;
     });
 

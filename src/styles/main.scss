@@ -680,163 +680,61 @@ ul {
     display: flex;
     flex-direction: column;
     padding: 48px;
-  }
+    .input-group {
+      margin-bottom: 16px;
+      .input-field {
+        position: relative;
+        padding: 15px 0 0;
+        margin-bottom: 32px;
+        width: 100%;
+        .input {
+          width: 100%;
+          padding: 5px 4px;
+          font-family: inherit;
+          background: transparent;
+          font-size: 18px;
+          outline: none;
+          border: 0;
+          border-bottom: 2px solid $gray;
+          transition: border-color 0.2s;
+          &::placeholder {
+            color: transparent;
+          }
+          &:focus + .label,
+          &:valid + .label {
+            font-size: 12px;
+            top: 0;
+            transition: all 0.3s;
+          }
+          &.valid {
+            border-bottom: 2px solid $success;
+            transition: all 0.5s;
+          }
+          &.invalid {
+            border-bottom: 2px solid $danger;
+            transition: all 0.5s;
+          }
+        }
 
-  .overbox .title {
-    color: #fff;
-
-    &:before {
-      background: #fff;
-    }
-  }
-
-  .input {
-    transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    -webkit-transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    -ms-transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-
-    label,
-    input,
-    .spin {
-      transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-      -webkit-transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-      -ms-transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    }
-  }
-
-  .login-button {
-    transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    -webkit-transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    -ms-transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-
-    button .login-button button {
-      transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-      -webkit-transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-      -ms-transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    }
-  }
-
-  .login-button button {
-    transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    -webkit-transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    -ms-transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .shape {
-    transition: 400ms cubic-bezier(0.4, 0, 0.2, 1);
-    -webkit-transition: 400ms cubic-bezier(0.4, 0, 0.2, 1);
-    -ms-transition: 400ms cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .input {
-    width: 100%;
-    small {
-      position: absolute;
-      left: 4px;
-      bottom: -20px;
-      font-size: small;
-    }
-
-    label,
-    input,
-    .spin {
-      width: 100%;
-    }
-  }
-
-  .login-button {
-    width: 100%;
-
-    button {
-      width: 100%;
-      float: left;
-    }
-  }
-
-  .input {
-    position: relative;
-    &:nth-child(2) {
-      margin-top: 24px;
-    }
-    input {
-      position: relative;
-      height: 60px;
-      top: 15px;
-      border: none;
-      background: transparent;
-      font-family: 'Lato', sans-serif;
-      font-size: 18px;
-      color: $accent-dark;
-      font-weight: 300;
-      padding: 0 4px;
-    }
-
-    label {
-      font-family: 'Lato', sans-serif;
-      font-size: 18px;
-      color: $gray;
-      font-weight: 300;
-    }
-  }
-
-  .login-button {
-    position: relative;
-    margin-top: 48px;
-    display: flex;
-    justify-content: center;
-    button {
-      position: relative;
-      width: 300px;
-      font-size: 18px;
-      font-weight: 300;
-    }
-  }
-
-  .input {
-    &:before,
-    .spin {
-      width: 100%;
-      height: 1px;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-    }
-
-    &:before {
-      content: '';
-      background: rgba($accent-dark, 0.7);
-      z-index: 3;
-    }
-
-    .spin {
-      background: $danger;
-      z-index: 4;
-      width: 0;
-      &.invalid {
-        background-color: $danger;
+        .label {
+          position: absolute;
+          top: 16px;
+          left: 4px;
+          color: $gray;
+          font-size: 18px;
+          transition: all 0.3s;
+        }
+        small {
+          position: absolute;
+          bottom: -24px;
+          left: 4px;
+        }
       }
     }
-  }
-  .input label {
-    position: absolute;
-    top: 10px;
-    left: 4px;
-    z-index: 2;
-    cursor: pointer;
-    line-height: 60px;
-  }
-  #email:focus ~ label[for='email'],
-  #password:focus ~ label[for='password'] {
-    font-size: 12px;
-    top: -8px;
-  }
-
-  #email:focus ~ .spin,
-// #name:valid ~ label[for='name'],
-#password:focus ~ .spin
-// #pass:valid ~ label[for='pass'] 
- {
-    width: 100%;
+    .login-button {
+      display: flex;
+      justify-content: center;
+    }
   }
 }
 
@@ -1173,10 +1071,6 @@ ul {
                 &:focus-visible {
                   outline: none;
                 }
-              }
-              option {
-                border-radius: 4px;
-                width: 50px;
               }
             }
             &.input {

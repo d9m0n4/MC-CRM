@@ -4,12 +4,10 @@
     <div class="dashboard">
       <div class="documents-tabs">
         <div class="tabs">
-          <a v-on:click="activetab = 1" v-bind:class="[activetab === 1 ? 'active' : '']"
+          <a v-on:click="activetab = 1" :class="[activetab === 1 ? 'active' : '']"
             >Договоры управления</a
           >
-          <a v-on:click="activetab = 2" v-bind:class="[activetab === 2 ? 'active' : '']"
-            >Протоколы ОСС</a
-          >
+          <a v-on:click="activetab = 2" :class="[activetab === 2 ? 'active' : '']">Протоколы ОСС</a>
         </div>
         <div class="tab-content">
           <div v-if="activetab === 1" class="tab-content-item">

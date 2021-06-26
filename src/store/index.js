@@ -1,6 +1,7 @@
 import { createStore } from 'vuex';
 import auth from './modules/auth.module';
 import objects from './modules/objects.module';
+import accaunts from './modules/accaunts.module';
 
 export default createStore({
   state() {
@@ -28,12 +29,10 @@ export default createStore({
     message(state) {
       return state.message;
     },
-    modal(state) {
-      return state.modal;
-    },
   },
   modules: {
     auth,
     objects,
+    accaunts,
   },
 });

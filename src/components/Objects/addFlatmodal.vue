@@ -50,12 +50,46 @@
 </template>
 
 <script>
-import AppMessage from '../../components/AppMessage.vue';
-import useAddFlat from '../../use/objects/addFlat';
+import AppMessage from '../AppMessage.vue';
+import { computed, ref } from '@vue/runtime-core';
+import { useStore } from 'vuex';
+
 export default {
   setup() {
+    const store = useStore();
+
+    const objects = computed(() => store.getters['objects/objects']);
+
+    const obj = ref({});
+    const flatNum = ref('');
+    const flatArea = ref('');
+
+    const onSubmit = async () => {
+      if (obj.value.quarters.length > 0) {
+        obj.value.quarters.forEach((el) => {
+          if (el.flatNum === flatNum.value) {
+            store.commit('setMessage', { type: 'danger', value: 'Квартира уже есть!' });
+            flatNum.value = '';
+          }
+        });
+      }
+
+      const oneObject = obj.value;
+      oneObject.quarters.push({
+        flatNum: flatNum.value,
+        flatArea: flatArea.value,
+      });
+      await store.dispatch('objects/updateObject', oneObject);
+      flatArea.value = '';
+      flatNum.value = '';
+    };
+
     return {
-      ...useAddFlat(),
+      obj,
+      flatNum,
+      flatArea,
+      onSubmit,
+      objects,
     };
   },
   components: {

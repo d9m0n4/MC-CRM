@@ -1,6 +1,7 @@
 <template>
   <div class="personal-accaunts">
-    <AppContentActions :btns="[{ name: 'Добавить лицевой счет' }]" />
+    <add-pers-accs-modal v-if="isModalOpen" @close="isModalOpen = !isModalOpen" />
+    <AppContentActions :btns="[{ name: 'Добавить лицевой счет', event: openModal }]" />
     <div class="houses-list-table">
       <table class="table">
         <thead>
@@ -13,8 +14,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td class="ta-c">1.</td>
+          <tr v-for="(object, index) in objects" :key="index">
+            <td class="ta-c">{{ index + 1 }}</td>
             <td>15683</td>
             <td>г Яранск, ул Строительная, д. 9</td>
             <td>кв. 1</td>
@@ -26,10 +27,34 @@
   </div>
 </template>
 <script>
+import { computed, onMounted, ref } from 'vue';
 import AppContentActions from '../components/AppContentActions';
+import AddPersAccsModal from '../components/PersAccs/AddPersAccsModal.vue';
+import { useStore } from 'vuex';
 export default {
+  setup() {
+    const store = useStore();
+    const isModalOpen = ref(false);
+    const openModal = () => {
+      isModalOpen.value = true;
+    };
+
+    const objects = computed(() => store.getters['objects/objects']);
+
+    onMounted(() => {
+      console.log(objects);
+      store.dispatch('objects/loadObjects');
+    });
+
+    return {
+      openModal,
+      isModalOpen,
+      objects,
+    };
+  },
   components: {
     AppContentActions,
+    AddPersAccsModal,
   },
 };
 </script>
