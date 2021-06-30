@@ -1,8 +1,8 @@
 <template>
   <div class="app-content-header">
-    <div class="app-content-header-title">
-      <div class="menu-icon" @click="showMenu">
-        <i class="menu-icon-line" :class="{ active: isMenuActive }"></i>
+    <div class="app-content-header-title" :class="{active: isOpen}">
+      <div class="menu-icon" @click="toggleMenu" >
+        <i class="menu-icon-line" :class="{ active: isOpen }"></i>
       </div>
       {{ $route.name }}
     </div>
@@ -39,18 +39,25 @@
 import { ref } from '@vue/reactivity';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
+import { provide } from '@vue/runtime-core';
 export default {
   setup() {
-    const isMenuActive = ref(false);
+    const isOpen = ref(false);
     const store = useStore();
     const router = useRouter();
     const logout = () => {
       store.commit('auth/logout');
       router.push('/auth');
     };
+    const toggleMenu = () => {
+      const val = isOpen.value = !isOpen.value
+      store.commit('toggleSidebar', val)
+    }
+    provide('val', isOpen)
     return {
       logout,
-      isMenuActive,
+      toggleMenu,
+      isOpen
     };
   },
 };

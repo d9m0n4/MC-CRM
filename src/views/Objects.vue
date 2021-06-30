@@ -45,7 +45,7 @@ import { computed, onMounted, onUpdated } from 'vue';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import ObjectItem from './ObjectItem.vue';
-import AddFlatmodal from '../components/Objects/AddFlatModal';
+import AddFlatmodal from '../components/Objects/AddFlatmodal';
 
 export default {
   components: {

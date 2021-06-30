@@ -7,6 +7,7 @@ export default createStore({
   state() {
     return {
       message: '',
+      sidebar: false
     };
   },
   mutations: {
@@ -16,6 +17,9 @@ export default createStore({
     clearMessage(state) {
       state.message = null;
     },
+    toggleSidebar(state, val) {
+      state.sidebar = val
+    }
   },
   actions: {
     async setMessage({ commit }, payload) {
@@ -29,6 +33,9 @@ export default createStore({
     message(state) {
       return state.message;
     },
+    sidebar(state) {
+      return state.sidebar
+    }
   },
   modules: {
     auth,

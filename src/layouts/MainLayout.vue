@@ -1,6 +1,6 @@
 <template>
   <app-loader v-if="isLoading" />
-  <app-sidebar :visible="true"></app-sidebar>
+  <app-sidebar></app-sidebar>
   <div class="app-content">
     <app-header></app-header>
     <div class="app-content-body">

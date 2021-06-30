@@ -9,15 +9,16 @@
   "dependencies": {
     "@vue/cli-shared-utils": "^4.5.13",
     "axios": "^0.21.1",
+    "chart.js": "^3.4.0",
     "core-js": "^3.6.5",
     "dadata-suggestions": "^1.1.1",
-    "v-calendar": "^3.0.0-alpha.4",
     "vee-validate": "^4.4.2",
     "vue": "^3.0.0",
     "vue-next-select": "^2.6.0",
     "vue-router": "^4.0.0-0",
-    "vue-select": "^3.11.2",
     "vue-suggestions": "^1.4.0",
+    "vue-trend-chart": "^0.15.3",
+    "vue3-chart-v2": "^0.8.2",
     "vuex": "^4.0.0-0",
     "yup": "^0.32.9"
   },

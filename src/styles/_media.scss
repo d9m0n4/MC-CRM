@@ -22,6 +22,13 @@
 }
 
 @media (max-width: 1700px) {
+  .service-group-item {
+    margin: 0 8px 24px 0px;
+    &:nth-child(2n) {
+      margin-left: 16px;
+    }
+  }
+    
   .app-content-body {
     .dashboard-widgets {
       .news-panel {
@@ -121,15 +128,21 @@
 }
 
 @media (max-width: 1439px) {
+  .service-group-item {
+    margin: 0 8px 32px 8px;
+    &:nth-child(2n) {
+      margin-left: 32px;
+    }
+  }
   .app-content-header-title .menu-icon {
     display: flex;
   }
   .sidebar {
     left: -260px;
-    transition: 1s all ease-in-out;
+    transition: .5s all ease-in-out;
     &.opened {
       left: 0;
-      transition: 1s all ease-in-out;
+      transition: .5s all ease-in-out;
     }
   }
   .app-content {

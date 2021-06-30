@@ -18,7 +18,7 @@ export function tooltip(el) {
   const clear = () => (el.innerHTML = '');
   return {
     show({ left, top }, data) {
-      const { height, width } = el.getBoundingClientRect();
+      console.log(width);
       clear();
       css(el, {
         display: 'block',
@@ -32,3 +32,22 @@ export function tooltip(el) {
     },
   };
 }
+
+//   return {
+//     show({ left, top, width }, data) {
+//       // const { height, width } = el.getBoundingClientRect();
+//       clear();
+//       css(el, {
+//         display: 'block',
+//         top: 0,
+//         right: 0,
+//         width: `${width}px`,
+
+//       });
+//       el.insertAdjacentHTML('afterbegin', template(data));
+//     },
+//     hide() {
+//       css(el, { display: 'none' });
+//     },
+//   };
+// }

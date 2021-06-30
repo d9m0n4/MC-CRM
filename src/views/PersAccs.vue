@@ -29,7 +29,7 @@
 <script>
 import { computed, onMounted, ref } from 'vue';
 import AppContentActions from '../components/AppContentActions';
-import AddPersAccsModal from '../components/PersAccs/AddPersAccsModal.vue';
+import AddPersAccsModal from '../components/PersAccs/AddPersAccsModal';
 import { useStore } from 'vuex';
 export default {
   setup() {

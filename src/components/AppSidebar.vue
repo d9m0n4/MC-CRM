@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar" v-if="visible">
+  <div class="sidebar" :class="{opened: isOpen}">
     <div class="app-logo">
       <img class="icon" src="../assets/img/icons/logo.svg" alt="logo" />CRM
     </div>
@@ -69,9 +69,14 @@
 </template>
 
 <script>
+import { computed } from '@vue/runtime-core';
+import { useStore } from 'vuex';
 export default {
-  props: {
-    visible: false,
-  },
+ setup() {
+  const store = useStore()
+   return {
+    isOpen: computed(() => store.getters['sidebar'])
+   }
+ }
 };
 </script>

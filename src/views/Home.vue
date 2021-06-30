@@ -1,4 +1,5 @@
 <template>
+  <app-loader v-if="isLoading" />
   <div class="dashboard">
     <div class="dashboard-widgets main-dashboard">
       <div class="widget-panel">
@@ -17,7 +18,7 @@
       </div>
       <div class="widget-panel">
         <div class="widget-panel-chart">
-          <chart />
+          <Bar />
         </div>
       </div>
       <div class="widget-panel">
@@ -144,24 +145,26 @@
 <script>
 import { computed, onMounted, ref } from '@vue/runtime-core';
 import { useStore } from 'vuex';
-import chart from '../plugins/chart/chart.vue';
+import AppLoader from '../components/AppLoader.vue';
+import { Bar } from 'vue3-chart-v2';
+
 export default {
-  components: { chart },
+  components: { AppLoader, Bar },
   data() {
     const store = useStore();
     const objects = computed(() => store.getters['objects/objects']);
-    const isLoading = ref(false);
+    const isLoading = ref(true);
 
     onMounted(async () => {
       isLoading.value = true;
       await store.dispatch('objects/loadObjects');
-      cons
       isLoading.value = false;
     });
 
     return {
       isActive: false,
       isMenuActive: false,
+      isLoading,
     };
   },
   methods: {

@@ -286,6 +286,11 @@ ul {
       color: rgba($color: $accent-dark, $alpha: 0.7);
       display: flex;
       align-items: center;
+      transition: all 0.5s ease-in-out;
+      &.active {
+        transform: translateX(240px);
+        transition: all 0.5s ease-in-out;
+      }
       .menu-icon {
         position: relative;
         height: 14px;
@@ -490,6 +495,7 @@ ul {
             box-shadow: 2px 2px 8px 1px rgba(0, 0, 0, 0.25);
             border-radius: 4px;
             display: flex;
+            position: relative;
           }
           &-circlechart {
             width: 100%;
@@ -662,78 +668,113 @@ ul {
   }
 }
 
-.login-form {
-  width: 440px;
-  position: relative;
-  margin: 0 auto;
-  align-self: center;
-  &-title {
-    font-size: 32px;
-    text-align: center;
-    margin-bottom: 32px;
-    color: $accent-dark;
-  }
-
-  .input-box {
-    background-color: #fff;
-    border-radius: 4px;
+.auth-page {
+  display: flex;
+  width: 100%;
+  .auth-form {
     display: flex;
-    flex-direction: column;
-    padding: 48px;
-    .input-group {
-      margin-bottom: 16px;
-      .input-field {
-        position: relative;
-        padding: 15px 0 0;
+    flex: 0 0 50%;
+    .login-form {
+      width: 440px;
+      position: relative;
+      margin: 0 auto;
+      align-self: center;
+      &-title {
+        font-size: 32px;
+        text-align: center;
         margin-bottom: 32px;
-        width: 100%;
-        .input {
-          width: 100%;
-          padding: 5px 4px;
-          font-family: inherit;
-          background: transparent;
-          font-size: 18px;
-          outline: none;
-          border: 0;
-          border-bottom: 2px solid $gray;
-          transition: border-color 0.2s;
-          &::placeholder {
-            color: transparent;
-          }
-          &:focus + .label,
-          &:valid + .label {
-            font-size: 12px;
-            top: 0;
-            transition: all 0.3s;
-          }
-          &.valid {
-            border-bottom: 2px solid $success;
-            transition: all 0.5s;
-          }
-          &.invalid {
-            border-bottom: 2px solid $danger;
-            transition: all 0.5s;
-          }
-        }
+        color: $accent-dark;
+      }
 
-        .label {
-          position: absolute;
-          top: 16px;
-          left: 4px;
-          color: $gray;
-          font-size: 18px;
-          transition: all 0.3s;
+      .input-box {
+        background-color: #fff;
+        border-radius: 4px;
+        display: flex;
+        flex-direction: column;
+        padding: 48px;
+        .input-group {
+          margin-bottom: 16px;
+          .input-field {
+            position: relative;
+            padding: 15px 0 0;
+            margin-bottom: 32px;
+            width: 100%;
+            .input {
+              width: 100%;
+              padding: 5px 26px;
+              font-family: inherit;
+              background: transparent;
+              font-size: 18px;
+              outline: none;
+              border: 0;
+              border-bottom: 2px solid $gray;
+              transition: border-color 0.2s;
+              &.login {
+                background-image: url('../assets/img/icons/loginIcon.svg');
+                background-position: 4px center;
+                background-repeat: no-repeat;
+              }
+              &.password {
+                background-image: url('../assets/img/icons/passwordIcon.svg');
+                background-position: 4px center;
+                background-repeat: no-repeat;
+              }
+              &::placeholder {
+                color: transparent;
+              }
+              &:focus + .label,
+              &:valid + .label {
+                font-size: 12px;
+                top: 0;
+                left: 8px;
+                transition: all 0.3s;
+              }
+              &.valid {
+                border-bottom: 2px solid $success;
+                transition: all 0.5s;
+              }
+              &.invalid {
+                border-bottom: 2px solid $danger;
+                transition: all 0.5s;
+              }
+            }
+
+            .label {
+              position: absolute;
+              top: 16px;
+              left: 26px;
+              color: $gray;
+              font-size: 18px;
+              transition: all 0.3s;
+            }
+            small {
+              position: absolute;
+              bottom: -24px;
+              left: 4px;
+            }
+          }
         }
-        small {
-          position: absolute;
-          bottom: -24px;
-          left: 4px;
+        .login-button {
+          display: flex;
+          justify-content: center;
         }
       }
     }
-    .login-button {
-      display: flex;
-      justify-content: center;
+  }
+  .auth-content {
+    flex: 0 0 50%;
+    background: linear-gradient(152.74deg, #8613cd 0%, rgba(21, 101, 192, 0.6) 100%);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    color: $lightbg;
+    p {
+      font-size: 36px;
+      &:nth-child(1) {
+        font-size: 24px;
+        margin-bottom: 36px;
+      }
     }
   }
 }
