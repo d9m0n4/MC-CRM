@@ -18,7 +18,12 @@
       </div>
       <div class="widget-panel">
         <div class="widget-panel-chart">
-          <Bar />
+          <vue3-chart-js
+            :id="doughnutChart.id"
+            :type="doughnutChart.type"
+            :data="doughnutChart.data"
+            @before-render="beforeRenderLogic"
+          ></vue3-chart-js>
         </div>
       </div>
       <div class="widget-panel">
@@ -27,25 +32,12 @@
             <div class="circlechart-title">Заявки</div>
             <div class="circlechart-filter">Сегодня</div>
           </div>
-          <div class="widget-panel-circlechart-body">
-            <div class="circlechart-categories">
-              <div class="circlechart-categories-item">
-                <div class="categories-item-icon green-icon"></div>
-                <div class="categories-item-title">Выполнена</div>
-              </div>
-              <div class="circlechart-categories-item">
-                <div class="categories-item-icon blue-icon"></div>
-                <div class="categories-item-title">В работе</div>
-              </div>
-              <div class="circlechart-categories-item">
-                <div class="categories-item-icon purple-icon"></div>
-                <div class="categories-item-title">Новая</div>
-              </div>
-            </div>
-            <div class="circlechart-diagram">
-              <img src="../assets/img/chart-circle.png" alt="" />
-            </div>
-          </div>
+          <vue3-chart-js
+            :id="circleChart.id"
+            :type="circleChart.type"
+            :data="circleChart.data"
+            :options="circleChart.options"
+          ></vue3-chart-js>
         </div>
         <div class="widget-panel-circlechart">
           <div class="widget-panel-circlechart-header">
@@ -146,10 +138,10 @@
 import { computed, onMounted, ref } from '@vue/runtime-core';
 import { useStore } from 'vuex';
 import AppLoader from '../components/AppLoader.vue';
-import { Bar } from 'vue3-chart-v2';
+import Vue3ChartJs from '@j-t-mcc/vue3-chartjs';
 
 export default {
-  components: { AppLoader, Bar },
+  components: { AppLoader, Vue3ChartJs },
   data() {
     const store = useStore();
     const objects = computed(() => store.getters['objects/objects']);
@@ -161,10 +153,64 @@ export default {
       isLoading.value = false;
     });
 
+    const doughnutChart = {
+      id: 'doughnut',
+      type: 'bar',
+
+      data: {
+        labels: ['VueJs', 'EmberJs', 'ReactJs', 'AngularJs'],
+        datasets: [
+          {
+            backgroundColor: ['#41B883', '#E46651', '#00D8FF', '#DD1B16'],
+            borderColor: 'rgb(75, 192, 192)',
+            data: [40, 20, 80, 10],
+            label: '1',
+          },
+          {
+            backgroundColor: ['#41B883', '#E46651', '#00D8FF', '#DD1B16'],
+            borderColor: 'rgb(34, 121, 242)',
+            data: [90, 10, 20, 70],
+            label: '2',
+          },
+        ],
+      },
+    };
+
+    const circleChart = {
+      id: 'doughnut',
+      type: 'doughnut',
+
+      data: {
+        labels: ['Red', 'Blue', 'Yellow'],
+        datasets: [
+          {
+            label: 'My First Dataset',
+            data: [300, 50, 100],
+            backgroundColor: ['rgb(255, 99, 132)', 'rgb(54, 162, 235)', 'rgb(255, 205, 86)'],
+            hoverOffset: 4,
+            weight: 2,
+          },
+        ],
+      },
+      options: {
+        plugins: {
+          legend: {
+            display: true,
+            position: 'left',
+            labels: {
+              boxWidth: 10,
+            },
+          },
+        },
+      },
+    };
+
     return {
       isActive: false,
       isMenuActive: false,
       isLoading,
+      doughnutChart,
+      circleChart,
     };
   },
   methods: {
