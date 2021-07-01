@@ -24,7 +24,8 @@ export function useLoginForm() {
       console.log(values);
       await store.dispatch('auth/login', values);
     } catch (e) {
-      throw new Error(e);
+      console.log(e);
+      throw new Error();
     }
   });
 

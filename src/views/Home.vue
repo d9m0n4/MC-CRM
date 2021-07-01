@@ -32,32 +32,27 @@
             <div class="circlechart-title">Заявки</div>
             <div class="circlechart-filter">Сегодня</div>
           </div>
-          <vue3-chart-js
-            :id="circleChart.id"
-            :type="circleChart.type"
-            :data="circleChart.data"
-            :options="circleChart.options"
-          ></vue3-chart-js>
+          <div class="chart-container" style="position: relative; height:300px; width:350px">
+            <vue3-chart-js
+              :id="circleChart.id"
+              :type="circleChart.type"
+              :data="circleChart.data"
+              :options="circleChart.options"
+            ></vue3-chart-js>
+          </div>
         </div>
         <div class="widget-panel-circlechart">
           <div class="widget-panel-circlechart-header">
             <div class="circlechart-title">Обращения</div>
             <div class="circlechart-filter">Сегодня</div>
           </div>
-          <div class="widget-panel-circlechart-body">
-            <div class="circlechart-categories">
-              <div class="circlechart-categories-item">
-                <div class="categories-item-icon green-icon"></div>
-                <div class="categories-item-title">Исполнено</div>
-              </div>
-              <div class="circlechart-categories-item">
-                <div class="categories-item-icon purple-icon"></div>
-                <div class="categories-item-title">Новое</div>
-              </div>
-            </div>
-            <div class="circlechart-diagram">
-              <img src="../assets/img/chart-circle.png" alt="" />
-            </div>
+          <div class="chart-container" style="position: relative; height:300px; width:350px">
+            <vue3-chart-js
+              :id="circleChart.id"
+              :type="circleChart.type"
+              :data="circleChart.data"
+              :options="circleChart.options"
+            ></vue3-chart-js>
           </div>
         </div>
       </div>
@@ -158,21 +153,38 @@ export default {
       type: 'bar',
 
       data: {
-        labels: ['VueJs', 'EmberJs', 'ReactJs', 'AngularJs'],
+        labels: [
+          '01.01.2021',
+          '02.01.2021',
+          '03.01.2021',
+          '04.01.2021',
+          '05.01.2021',
+          '06.01.2021',
+          '07.01.2021',
+        ],
         datasets: [
           {
-            backgroundColor: ['#41B883', '#E46651', '#00D8FF', '#DD1B16'],
+            backgroundColor: ['#41B883'],
             borderColor: 'rgb(75, 192, 192)',
-            data: [40, 20, 80, 10],
-            label: '1',
+            data: [40, 26, 81, 12, 33, 10, 50],
+            label: 'Оплаты',
           },
           {
-            backgroundColor: ['#41B883', '#E46651', '#00D8FF', '#DD1B16'],
+            backgroundColor: ['#E46651'],
             borderColor: 'rgb(34, 121, 242)',
-            data: [90, 10, 20, 70],
-            label: '2',
+            data: [10, 20, 40, 90, 40, 90, 60],
+            label: 'Задолженность',
           },
         ],
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            display: true,
+            position: 'left',
+          },
+        },
       },
     };
 
@@ -181,24 +193,30 @@ export default {
       type: 'doughnut',
 
       data: {
-        labels: ['Red', 'Blue', 'Yellow'],
+        labels: ['Выполнена', 'В работе', 'Новая'],
         datasets: [
           {
             label: 'My First Dataset',
             data: [300, 50, 100],
-            backgroundColor: ['rgb(255, 99, 132)', 'rgb(54, 162, 235)', 'rgb(255, 205, 86)'],
+            backgroundColor: [
+              'rgba(46, 169, 66, 1)',
+              'rgba(21, 101, 192, 1)',
+              'rgba(134, 19, 205, 1)',
+            ],
             hoverOffset: 4,
-            weight: 2,
           },
         ],
       },
       options: {
+        responsive: true,
         plugins: {
           legend: {
             display: true,
             position: 'left',
             labels: {
               boxWidth: 10,
+              usePointStyle: true,
+              padding: 20,
             },
           },
         },

@@ -23,7 +23,7 @@ export default {
   },
   actions: {
     async login({ commit, dispatch }, payload) {
-      commit('setToken', TOKEN);
+      commit('setToken', KEY);
       console.log(payload);
       try {
         const url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${KEY}`;
@@ -32,7 +32,6 @@ export default {
         console.log(data);
         router.push('/');
       } catch (e) {
-        console.log(e.response.data);
         dispatch(
           'setMessage',
           {
@@ -41,7 +40,7 @@ export default {
           },
           { root: true },
         );
-        throw new Error(e);
+        throw new Error();
       }
     },
   },
