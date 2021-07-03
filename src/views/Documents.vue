@@ -1,6 +1,6 @@
 <template>
   <div class="document-list">
-    <AppContentActions :btns="['Добавить договор']" />
+    <AppContentActions :btns="[{ name: 'Добавить договор', event: AddDocumentModal }]" />
     <div class="dashboard">
       <div class="documents-tabs">
         <div class="tabs">
@@ -140,11 +140,19 @@
 </template>
 
 <script>
+import { ref } from 'vue';
 import AppContentActions from '../components/AppContentActions';
 export default {
-  data() {
+  setup() {
+    const activetab = ref(1);
+
+    const AddDocumentModal = () => {
+      console.log(123123);
+    };
+
     return {
-      activetab: 1,
+      AddDocumentModal,
+      activetab,
     };
   },
   components: {

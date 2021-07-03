@@ -17,13 +17,15 @@
         </div>
       </div>
       <div class="widget-panel">
-        <div class="widget-panel-chart">
-          <vue3-chart-js
-            :id="doughnutChart.id"
-            :type="doughnutChart.type"
-            :data="doughnutChart.data"
-            @before-render="beforeRenderLogic"
-          ></vue3-chart-js>
+        <div class="widget-panel-chart" ref="widget">
+          <div class="chart-panel">
+            <apexchart
+              type="area"
+              height="250"
+              :options="lineData.chartOptions"
+              :series="lineData.series"
+            ></apexchart>
+          </div>
         </div>
       </div>
       <div class="widget-panel">
@@ -32,27 +34,25 @@
             <div class="circlechart-title">Заявки</div>
             <div class="circlechart-filter">Сегодня</div>
           </div>
-          <div class="chart-container" style="position: relative; height:300px; width:350px">
-            <vue3-chart-js
-              :id="circleChart.id"
-              :type="circleChart.type"
-              :data="circleChart.data"
-              :options="circleChart.options"
-            ></vue3-chart-js>
-          </div>
+          <apexchart
+            type="donut"
+            height="250"
+            :options="data.chartOptions"
+            :series="data.series"
+          ></apexchart>
         </div>
         <div class="widget-panel-circlechart">
           <div class="widget-panel-circlechart-header">
             <div class="circlechart-title">Обращения</div>
             <div class="circlechart-filter">Сегодня</div>
           </div>
-          <div class="chart-container" style="position: relative; height:300px; width:350px">
-            <vue3-chart-js
-              :id="circleChart.id"
-              :type="circleChart.type"
-              :data="circleChart.data"
-              :options="circleChart.options"
-            ></vue3-chart-js>
+          <div class="chart-container" id="chart">
+            <apexchart
+              type="donut"
+              height="250"
+              :options="data.chartOptions"
+              :series="data.series"
+            ></apexchart>
           </div>
         </div>
       </div>
@@ -122,7 +122,7 @@
         </div>
       </div>
     </div>
-    <div class="show-btn" :class="{ active: isActive }" @click="show">
+    <div class="show-btn" :class="{ active: isActive }" @click="isActive != isActive">
       <div v-if="!isActive" class="dots"><span></span></div>
       <div v-if="isActive" class="cross"><span></span></div>
     </div>
@@ -133,11 +133,11 @@
 import { computed, onMounted, ref } from '@vue/runtime-core';
 import { useStore } from 'vuex';
 import AppLoader from '../components/AppLoader.vue';
-import Vue3ChartJs from '@j-t-mcc/vue3-chartjs';
+import VueApexCharts from 'vue3-apexcharts';
 
 export default {
-  components: { AppLoader, Vue3ChartJs },
-  data() {
+  components: { AppLoader, apexchart: VueApexCharts },
+  setup() {
     const store = useStore();
     const objects = computed(() => store.getters['objects/objects']);
     const isLoading = ref(true);
@@ -148,77 +148,90 @@ export default {
       isLoading.value = false;
     });
 
-    const doughnutChart = {
-      id: 'doughnut',
-      type: 'bar',
-
-      data: {
-        labels: [
-          '01.01.2021',
-          '02.01.2021',
-          '03.01.2021',
-          '04.01.2021',
-          '05.01.2021',
-          '06.01.2021',
-          '07.01.2021',
-        ],
-        datasets: [
+    const data = {
+      series: [44, 55, 41, 17],
+      chartOptions: {
+        chart: {
+          height: 270,
+          type: 'donut',
+        },
+        responsive: [
           {
-            backgroundColor: ['#41B883'],
-            borderColor: 'rgb(75, 192, 192)',
-            data: [40, 26, 81, 12, 33, 10, 50],
-            label: 'Оплаты',
-          },
-          {
-            backgroundColor: ['#E46651'],
-            borderColor: 'rgb(34, 121, 242)',
-            data: [10, 20, 40, 90, 40, 90, 60],
-            label: 'Задолженность',
+            breakpoint: 480,
+            options: {
+              chart: {
+                width: 200,
+              },
+              legend: {
+                position: 'top',
+              },
+            },
           },
         ],
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            display: true,
-            position: 'left',
-          },
+        dataLabels: {
+          enabled: false,
+        },
+        legend: {
+          position: 'left',
         },
       },
     };
+    const lineData = {
+      series: [
+        {
+          name: 'series1',
+          data: [31, 40, 28, 51, 42, 109, 100],
+        },
+        {
+          name: 'series2',
+          data: [11, 32, 45, 32, 34, 52, 41],
+        },
+      ],
 
-    const circleChart = {
-      id: 'doughnut',
-      type: 'doughnut',
-
-      data: {
-        labels: ['Выполнена', 'В работе', 'Новая'],
-        datasets: [
-          {
-            label: 'My First Dataset',
-            data: [300, 50, 100],
-            backgroundColor: [
-              'rgba(46, 169, 66, 1)',
-              'rgba(21, 101, 192, 1)',
-              'rgba(134, 19, 205, 1)',
-            ],
-            hoverOffset: 4,
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            display: true,
-            position: 'left',
-            labels: {
-              boxWidth: 10,
-              usePointStyle: true,
-              padding: 20,
+      chartOptions: {
+        chart: {
+          height: 350,
+          type: 'area',
+          toolbar: {
+            show: true,
+            tools: {
+              download: false,
+              selection: false,
+              zoom: false,
+              zoomin: false,
+              zoomout: false,
+              pan: false,
+              reset: false | '<img src="/static/icons/reset.png" width="20">',
+              customIcons: [],
             },
           },
+        },
+        colors: ['#2EA942', '#A92E2E'],
+        dataLabels: {
+          enabled: false,
+        },
+        stroke: {
+          curve: 'smooth',
+        },
+        xaxis: {
+          type: 'datetime',
+          categories: [
+            '2018-09-19T00:00:00.000Z',
+            '2018-09-19T01:30:00.000Z',
+            '2018-09-19T02:30:00.000Z',
+            '2018-09-19T03:30:00.000Z',
+            '2018-09-19T04:30:00.000Z',
+            '2018-09-19T05:30:00.000Z',
+            '2018-09-19T06:30:00.000Z',
+          ],
+        },
+        tooltip: {
+          x: {
+            format: 'dd/MM/yy',
+          },
+        },
+        legend: {
+          position: 'right',
         },
       },
     };
@@ -227,14 +240,9 @@ export default {
       isActive: false,
       isMenuActive: false,
       isLoading,
-      doughnutChart,
-      circleChart,
+      data,
+      lineData,
     };
-  },
-  methods: {
-    show() {
-      this.isActive = !this.isActive;
-    },
   },
 };
 </script>

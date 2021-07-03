@@ -14,12 +14,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(object, index) in objects" :key="index">
+          <tr v-for="(q, index) in quarters" :key="index">
             <td class="ta-c">{{ index + 1 }}</td>
             <td>15683</td>
             <td>г Яранск, ул Строительная, д. 9</td>
             <td>кв. 1</td>
-            <td class="ta-c">Иванов Иван Иванович</td>
+            <td class="ta-c">{{ q }}</td>
           </tr>
         </tbody>
       </table>
@@ -40,16 +40,22 @@ export default {
     };
 
     const objects = computed(() => store.getters['objects/objects']);
+    const quarters = ref([]);
 
-    onMounted(() => {
-      console.log(objects);
-      store.dispatch('objects/loadObjects');
+    onMounted(async () => {
+      await store.dispatch('objects/loadObjects');
+      objects.value.forEach((obj) => {
+        const q = obj.quarters.map((quarter) => quarter.accaunt);
+        quarters.value.push(q);
+        console.log(quarters.value);
+      });
     });
 
     return {
       openModal,
       isModalOpen,
       objects,
+      quarters,
     };
   },
   components: {

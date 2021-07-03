@@ -67,7 +67,7 @@ export default {
 
     onMounted(async () => {
       isLoading.value = true;
-      store.dispatch('objects/loadObjects');
+      await store.dispatch('objects/loadObjects');
       isLoading.value = false;
       console.log(objects.value);
     });

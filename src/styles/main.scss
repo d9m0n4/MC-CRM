@@ -497,6 +497,9 @@ ul {
             padding: 16px;
             display: flex;
             position: relative;
+            .chart-panel {
+              width: 100%;
+            }
           }
           &-circlechart {
             width: 100%;
